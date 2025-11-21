@@ -1,0 +1,72 @@
+/* Navbar Background */
+.navbar-custom {
+  background-color: #050511;
+  margin-left: 0;
+ 
+}
+
+/* Make nav items spread out so last item goes right */
+.navbar-nav {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  
+  
+}
+
+/* Logo */
+.logo-img {
+  height: 36px;
+  margin-left: 0;
+}
+
+/* Nav Links */
+.nav-link {
+  color: rgba(255, 255, 255, 0.8);
+  margin: 0 10px;
+  font-weight: 500;
+  transition: 0.3s ease;
+  background: transparent;
+  border-radius: 30px;
+  border: 0.5px solid #fff;   
+  padding: 8px 26px;          
+}
+
+/* Hover + Active State */
+.nav-link:hover,
+.nav-link.active {
+   background: rgba(255, 255, 255, 0.15); 
+  color: white;         
+}
+
+/* Forces the purchase + quick-btn block to right side */
+.nav-item:last-child {
+  margin-left: auto;
+}
+
+/* Purchase Button */
+.purchase-btn {
+  background: #fff;
+  border-radius: 30px;
+  padding: 10px 22px;
+  font-weight: 600;
+}
+
+/* Circular Button */
+.quick-btn {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.08);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 12px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+/* Hover Effect */
+.quick-btn:hover {
+  background: rgba(255, 255, 255, 0.18);
+}
