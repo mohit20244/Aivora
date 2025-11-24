@@ -2,7 +2,12 @@
 .navbar-custom {
   background-color: #050511;
   margin-left: 0;
- 
+  position: fixed;  
+  z-index: 9999;    
+  top: 0;               
+  width: 100%;          
+
+  
 }
 
 /* Make nav items spread out so last item goes right */
@@ -29,7 +34,8 @@
   background: transparent;
   border-radius: 30px;
   border: 0.5px solid #fff;   
-  padding: 8px 26px;          
+  padding: 8px 26px;  
+          
 }
 
 /* Hover + Active State */
