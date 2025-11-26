@@ -1,8 +1,10 @@
 
 import React, { useEffect, useRef } from "react";
+import { motion, useAnimation } from "framer-motion";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "../components/Home.css";
 import "../components/Demo.css"
+import "../components/Responsive.css"
 
 
 function Home() {
@@ -74,14 +76,55 @@ function Home() {
   }, []);
 
 
-  // helper to store refs when mapping
+  // helpe to store refs when mapping
   const setCardRef = (el, i) => (cardRefs.current[i] = el);
   const setBubbleRef = (el, i) => (bubbleRefs.current[i] = el);
+
+
+
+
+  const fadeUp = {
+    hidden: {
+      opacity: 0,
+      y: 80,
+    },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 2.9,
+        ease: [0.16, 1, 0.3, 1],
+        stiffness: 30,
+        damping: 10,
+        type: "spring",
+      },
+    },
+  };
+
+  const controls = useAnimation();
+  const rowRef = useRef(null);
+
+  useEffect(() => {
+    if (!rowRef.current) return;
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            controls.start("visible");
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.18 }
+    );
+    observer.observe(rowRef.current);
+    return () => observer.disconnect();
+  }, [controls]);
 
   return (
     <>
       <section className="hero-section">
-        <div className="container">
+        <div className="container-fluid px-2">
           <div className="row">
             <div className="col-xl-6 col-lg-10">
               <div className="hero-content">
@@ -176,7 +219,10 @@ function Home() {
       <section className="demo-section">
         <div className="container-fluid mxw_1750">
           <div className="demo-inner">
-            <div className="row justify-content-center">
+            <motion.div className="row justify-content-center" ref={rowRef}
+              initial="hidden"
+              animate={controls}
+              variants={fadeUp}>
               <div className="col-lg-7 col-md-12">
                 <div className="sec-title demo-sec-title text-center mb-70">
                   <h2 className="title">
@@ -191,12 +237,15 @@ function Home() {
                   </h2>
                 </div>
               </div>
-            </div>
+            </motion.div>
 
 
             {/* cards */}
 
-            <div className="row">
+            <motion.div className="row " ref={rowRef}
+              initial="hidden"
+              animate={controls}
+              variants={fadeUp}>
               <div className="col-lg-4 mt-30">
                 <a href="http://example.com" className="card-link">
                   <div className="card-bg fade-in-up" ref={(el) => (cardRefs.current[0] = el)}>
@@ -246,10 +295,10 @@ function Home() {
                   </div>
                 </a>
               </div>
-            </div>
+            </motion.div>
 
             <div className="row  justify-content-center">
-              <a href="#" className="browse-btn d-flex align-items-center">
+              <a href="#" className="purches-btn d-flex align-items-center">
                 <span className="text">PURCHES NOW</span>
                 <div className="arrow-circle ">
                   <svg
@@ -284,7 +333,7 @@ function Home() {
             <div className="col-xl-7  col-lg-8" >
               <h2 className="cta-heading">Create and customize your legendary website with easy and flexibility</h2>
 
-            
+
               <a href="#" className="purches-btn d-flex align-items-center">
                 <span className="text">PURCHES NOW</span>
                 <div className="arrow-circle ">
@@ -304,7 +353,7 @@ function Home() {
                 </div>
               </a>
 
-          
+
 
             </div>
 
@@ -312,6 +361,170 @@ function Home() {
 
         </div>
       </section>
+      {/* cta end */}
+
+
+
+      {/* responsive start */}
+
+      <section className="resp-section">
+        <div className="container">
+          <div className="row align-items-center mb-25">
+            <div className="col-lg-7">
+              <h2 className="resp-title"> Responsive layout
+                <br />
+                for any devices
+              </h2>
+            </div>
+            <div className="col-lg-5">
+              <p className="resp-subtitle">
+                A fully responsive layout that adapts to all
+                <br />
+                screen sizes, providing a smooth and optimal
+                <br />
+                viewing experience on any device.
+              </p>
+            </div>
+            <div className="item-bg">
+              <div className="features">
+                <div className="feature">
+                  <div className="icon-wrap">
+                    <img src="https://html.xpressbuddy.com/aivora/demo/assets/img/icon/rs_01.svg" alt="icon" />
+                  </div>
+                  <h3 className="feature-title">Live Editing</h3>
+                  <p className="feature-desc">See your designs on any device and adjust instantly.</p>
+                </div>
+
+                <div className="feature">
+                  <div className="icon-wrap">
+                    <img src="https://html.xpressbuddy.com/aivora/demo/assets/img/icon/rs_02.svg" alt="icon" />
+                  </div>
+                  <h3 className="feature-title">Responsive Controls</h3>
+                  <p className="feature-desc">Tailor designs for mobile and tablet to look stunning on any screen.</p>
+                </div>
+
+                <div className="feature">
+                  <div className="icon-wrap">
+                    <img src="https://html.xpressbuddy.com/aivora/demo/assets/img/icon/rs_03.svg" alt="icon" />
+                  </div>
+                  <h3 className="feature-title">Hide/Show on Mobile</h3>
+                  <p className="feature-desc">Control what blocks your audience sees on each device.</p>
+                </div>
+
+              </div>
+
+            </div>
+
+
+            <div className="glass-card wide-card">
+              <div className="wide-inner container-grid">
+                <div className="wide-left">
+                  <h3 className="wide-title">Landing-pages and <br /> websites laptop view</h3>
+                  <p className="wide-desc">
+                    Build a clean website to establish your online
+                    presence and create landing pages that attract
+                    and convert more customers.
+                  </p>
+                  <div className="wide-btns">
+                    <button className="pill">Landing-pages</button>
+                    <button className="pill">Websites</button>
+                    <button className="pill">Internal pages</button>
+                  </div>
+                </div>
+                <div className="wide-right">
+                  <img className="laptop" src="https://html.xpressbuddy.com/aivora/demo/assets/img/responsive/laptop.png" alt="laptop mockup" />
+                </div>
+              </div>
+            </div>
+
+
+
+            {/* Tablet Card */}
+            <div className="col-lg-7">
+              <div className="device-card tablet-card">
+                <div className="device-content">
+                  <h2 className="device-title">Tablet view</h2>
+                  <p className="device-text">
+                    Optimized for tablet view, ensuring a <br />
+                    smooth and engaging experience.
+                  </p>
+                </div>
+                <img
+                  src="https://html.xpressbuddy.com/aivora/demo/assets/img/responsive/tablet.png"
+                  alt="tablet view"
+                  className="device-img tablet-img"
+                />
+              </div>
+            </div>
+
+            {/* Mobile Card */}
+            <div className="col-lg-5">
+              <div className="device-card mobile-card">
+                <div className="device-content">
+                  <h2 className="device-title">Mobile view</h2>
+                  <p className="device-text">
+                    Optimized for mobile, offering a <br />
+                    seamless, user-friendly experience.
+                  </p>
+                </div>
+                <img
+                  src="https://html.xpressbuddy.com/aivora/demo/assets/img/responsive/mobile.png"
+                  alt="mobile view"
+                  className="device-img mobile-img"
+                />
+              </div>
+            </div>
+
+
+            <div className="glass-panel">
+              <div className="sizes-grid">
+                <div className="size-item">
+                  <div className="icon-wrap1">
+                    <img src="https://html.xpressbuddy.com/aivora/demo/assets/img/icon/rsp_01.svg" alt="icon" />
+                  </div>
+                  <h4 className="size-title">1920 x 1080px</h4>
+                  <p className="size-sub">Full Screen Layout</p>
+                </div>
+
+                <div className="size-item">
+                  <div className="icon-wrap1">
+                    <img src="https://html.xpressbuddy.com/aivora/demo/assets/img/icon/rsp_02.svg" alt="icon" />
+                  </div>
+                  <h4 className="size-title">1364 x 768px</h4>
+                  <p className="size-sub">Notebook Screen Layout</p>
+                </div>
+
+                <div className="size-item">
+                  <div className="icon-wrap1">
+                    <img src="https://html.xpressbuddy.com/aivora/demo/assets/img/icon/rsp_03.svg" alt="icon" />
+                  </div>
+                  <h4 className="size-title">1024 x 768px</h4>
+                  <p className="size-sub">Tablet Screen Layout</p>
+                </div>
+
+                <div className="size-item">
+                  <div className="icon-wrap1">
+                    <img src="https://html.xpressbuddy.com/aivora/demo/assets/img/icon/rsp_04.svg" alt="icon" />
+                  </div>
+                  <h4 className="size-title">375 x 667px</h4>
+                  <p className="size-sub">Mobile Screen Layout</p>
+                </div>
+              </div>
+            </div>
+
+
+
+
+
+          </div>
+        </div>
+      </section>
+      {/* responsive end */}
+
+
+      {/* support start */}
+
+
 
     </>
   );
